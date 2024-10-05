@@ -1,0 +1,105 @@
+.email-list-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.file-upload-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.file-upload-area:hover {
+  border-color: #4a90e2;
+}
+
+.file-upload-area.dragging {
+  border-color: #4a90e2;
+  background-color: rgba(74, 144, 226, 0.1);
+}
+
+.file-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  color: #4a90e2;
+}
+
+.file-upload-area p {
+  margin: 0;
+  color: #666;
+}
+
+.email-input-container {
+  margin-bottom: 1rem;
+}
+
+.email-input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.email-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.email-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.email-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.email-item:last-child {
+  border-bottom: none;
+}
+
+.remove-email {
+  background-color: transparent;
+  border: none;
+  color: #ff4d4d;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.remove-email:hover {
+  color: #ff1a1a;
+}
+
+@media (max-width: 600px) {
+  .file-upload-area {
+    padding: 1.5rem;
+  }
+
+  .file-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .email-input {
+    padding: 0.5rem;
+  }
+}
