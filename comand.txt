@@ -1,0 +1,9 @@
+cargo concordium build --schema-embed --out dist/techfiesta_minter.module.wasm.v1 --schema-out dist/schema.bin
+
+concordium-client module deploy dist/techfiesta_minter.module.wasm.v1 --sender my_wallet.json --name techfiesta_minter_module11 --grpc-ip node.testnet.concordium.com
+
+
+concordium-client contract init techfiesta_minter_module11 --sender my_wallet.json --contract techfiesta_minter_contract --name techfiesta_minter11 --energy 3000 --grpc-ip node.testnet.concordium.com
+
+
+concordium-client contract update techfiesta_minter11 --entrypoint mint --energy 3000 --sender my_wallet.json --parameter-json params/mint-params.json --schema dist/schema.bin --grpc-ip node.testnet.concordium.com
