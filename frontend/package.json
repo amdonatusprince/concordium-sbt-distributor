@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "./backend/target/release/sponsored-transaction-backend --node http://node.testnet.concordium.com:20000 --port 8100 ",
+    "start": "./backend/target/release/sponsored-transaction-backend --node https://grpc.mainnet.concordium.software:20000 --port 8888 --smart-contract-index 9747",
     "lint": "next lint",
     "lint-fix": "yarn lint --fix",
     "fmt": "prettier --write .",

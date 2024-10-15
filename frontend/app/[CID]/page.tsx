@@ -55,18 +55,16 @@ const page = () => {
       const response = await fetch(`/api/files?CID=${CID}`);
       if (response.ok) {
         const data: GetCIDResponse = await response.json();
-        console.log(data.data);
         setNftData(data.data);
         setLoading(false);
         setError(false);
-        toast.success("sucessfull");
       } else {
         toast.error("failed");
         setLoading(false);
         setError(true);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setLoading(false);
       setError(true);
     }
@@ -142,7 +140,6 @@ const page = () => {
   useEffect(() => {
     // Define the async function
     const fetchNonce = async () => {
-      console.log(account);
       try {
         const value = await getNonce(
           rpc as ConcordiumGRPCClient,
@@ -208,7 +205,6 @@ const page = () => {
       toast.error("Serialization Error");
     }
   };
-  console.log(nftData);
 
   return (
     <Suspense fallback={<p>Loading...</p>}>

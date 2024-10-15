@@ -66,23 +66,7 @@ export default function Home() {
     description: Yup.string()
       .required("Description is required")
       .min(10, "Description must be at least 10 characters long"),
-
-    // decimals: Yup.number()
-    //   .required("Decimals are required")
-    //   .typeError("Decimals must be a number")
-    //   .min(0, "Decimals must be at least 0")
-    //   .max(18, "Decimals cannot exceed 18"),
-
-    // unique: Yup.boolean().required("Unique field is required"),
-
-    // nftImageUrl: Yup.string()
-    //   .required("NFT image URL is required")
-    //   .url("Must be a valid URL"),
   });
-
-  console.log(emailList);
-  console.log(metadataCID);
-  console.log(emailContent);
 
   const sendEmail = async (resetForm: () => void) => {
     try {
@@ -97,7 +81,6 @@ export default function Home() {
         }),
       });
       const response = await request.json();
-      console.log(response);
       if (response.statusCode === 202) {
         toast.success("Email sent Successfully");
         resetForm();
@@ -110,7 +93,6 @@ export default function Home() {
       setUploadingMetadata(false);
     } catch (e) {
       setUploadingMetadata(false);
-      console.log(e);
       toast.error("Trouble sending emails");
     }
   };
@@ -189,7 +171,6 @@ export default function Home() {
                   className="bg-gray-100 hover:bg-gray-200 text-blue-500 font-bold py-2 px-4 rounded transition duration-300"
                   disabled={uploadingMetadata}
                   onClick={() => {
-                    console.log();
                     if (
                       emailSubject !== "" &&
                       emailContent !== "" &&

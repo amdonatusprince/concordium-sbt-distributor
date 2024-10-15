@@ -71,8 +71,6 @@ export function generateMintPayload(account: any, CID: string) {
     )
   ).toString();
 
-  console.log(Buffer.from(payload));
-
   return payload;
 }
 
@@ -119,7 +117,6 @@ export const getNonce = async (
 
   try {
     if (contract) {
-      console.log(contract);
       const contract_schema = await rpc?.getEmbeddedSchema(
         contract?.sourceModule
       );
@@ -143,14 +140,11 @@ export const getNonce = async (
         invoker: AccountAddress?.fromJSON(account),
         parameter: serializedParameter,
       });
-      console.log(result.returnValue);
       const buffer = Buffer.from(result.returnValue?.buffer as Uint8Array);
       const newschema = Buffer?.from(contract_schema).buffer;
 
-      console.log(newschema);
       const name = ContractName?.fromString(SPONSORED_TX_CONTRACT_NAME);
       const entry_point = EntrypointName?.fromString(receiveName);
-      console.log(contract_schema);
 
       const values = await deserializeReceiveReturnValue(
         buffer,
@@ -159,7 +153,6 @@ export const getNonce = async (
         entry_point,
         SchemaVersion?.V1
       );
-      console.log("values", values);
       return values;
     }
   } catch (err) {

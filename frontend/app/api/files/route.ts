@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const uploadData = await pinata.upload.file(file, options);
     return NextResponse.json(uploadData, { status: 200 });
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     const response = await pinata.gateways.get(CID);
     return NextResponse.json(response);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

@@ -26,7 +26,6 @@ const EventForm = ({
   isValid,
   dirty,
 }: EventForms) => {
-  console.log(values);
   const [uploading, setUploading] = useState(false);
 
   const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL
@@ -53,8 +52,6 @@ const EventForm = ({
         }),
       });
       const response = await request.json();
-      console.log(response);
-      // setCid(response.IpfsHash);
 
       if (request.ok) {
         setMetadataCID(response.IpfsHash);
@@ -65,7 +62,7 @@ const EventForm = ({
       }
       setUploading(false);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setUploading(false);
       toast.error("Trouble uploading file");
     }

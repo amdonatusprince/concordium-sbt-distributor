@@ -35,7 +35,6 @@ const ImageUploader = ({ setFieldValue, values }: Image) => {
         body: formData,
       });
       const response = await request.json();
-      console.log(response);
       if (request.ok) {
         setFieldValue(
           "nftImageUrl",

@@ -135,6 +135,7 @@ async fn main() -> anyhow::Result<()> {
     let key_mint = Arc::clone(&key_update_operator);
 
     log::debug!("Acquire nonce of wallet account.");
+    println!("Looking for keys at: {:?}", &key_update_operator.address);
 
     let nonce_response = node_client
         .get_next_account_sequence_number(&key_update_operator.address)

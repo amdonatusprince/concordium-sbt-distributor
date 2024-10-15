@@ -20,7 +20,6 @@ const EmailList = ({ setEmailList, emailList }: Emaillist) => {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileInput = e.target;
     const file = e.target.files && e.target.files[0];
-    console.log(file);
     if (file && e.target) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -34,19 +33,6 @@ const EmailList = ({ setEmailList, emailList }: Emaillist) => {
           .filter(
             (email) => typeof email === "string" && email.includes("@")
           ) as string[];
-        console.log(allemailList);
-
-        // setEmails((prevEmails) => {
-        //   const newEmails = [...prevEmails, ...emailList].filter(
-        //     (email, index, arr) => arr.indexOf(email) === index
-        //   ) as string[];
-        //   // setEmailList(newEmails);
-        //   console.log(newEmails);
-
-        //   return newEmails;
-        // });
-
-        // setEmailList(allemailList);
 
         setEmailList((prevEmail) => {
           const newEmails = [...prevEmail, ...allemailList]; // Spread the array
@@ -67,8 +53,6 @@ const EmailList = ({ setEmailList, emailList }: Emaillist) => {
       return newEmails;
     });
   };
-
-  console.log(emailInput);
 
   const indexOfLastEmail = currentPage * emailsPerPage;
   const indexOfFirstEmail = indexOfLastEmail - emailsPerPage;

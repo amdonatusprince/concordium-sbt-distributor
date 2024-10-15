@@ -12,8 +12,9 @@ interface ConnectWalletProps {
   children: ReactNode;
 }
 const ConnectWalletProvider: React.FC<ConnectWalletProps> = ({ children }) => {
+  console.log(MAINNET);
   return (
-    <WithWalletConnector network={TESTNET}>
+    <WithWalletConnector network={MAINNET}>
       {(walletProps) => (
         <WalletProvider walletProps={walletProps}>{children}</WalletProvider>
       )}
