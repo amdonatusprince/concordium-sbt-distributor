@@ -28,15 +28,15 @@ struct IdVerifierConfig {
         default_value = "http://localhost:20000"
     )]
     endpoint: Endpoint,
-    #[clap(
+    #[structopt(
         long = "port",
         default_value = "8100",
         help = "Port on which the server will listen on."
     )]
     port: u16,
-    #[clap(
+    #[structopt(
         long = "smart-contract-index",
-        default_value = "4184",
+        default_value = "10266",
         help = "The smart contract index which the sponsored transaction is submitted to."
     )]
     smart_contract_index: u64,
@@ -180,19 +180,19 @@ async fn main() -> anyhow::Result<()> {
 
     log::debug!("Get public files to serve.");
 
-    // Check if the front end has been built and the public folder exists.
-    if !Path::new(&app.public_folder).exists() {
-        return Err(anyhow!(LogError::PublicFolderDoesNotExist));
-    }
+    // // Check if the front end has been built and the public folder exists.
+    // if !Path::new(&app.public_folder).exists() {
+    //     return Err(anyhow!(LogError::PublicFolderDoesNotExist));
+    // }
 
-    let serve_public_files = warp::get().and(warp::fs::dir(app.public_folder));
+    // let serve_public_files = warp::get().and(warp::fs::dir(app.public_folder));
 
-    log::debug!("Serve response back to frontend.");
+    // log::debug!("Serve response back to frontend.");
 
     let server = provide_submit_update_operator
         .or(provide_submit_transfer)
         .or(provide_submit_mint)
-        .or(serve_public_files)
+        // .or(serve_public_files)
         .recover(handle_rejection)
         .with(cors)
         .with(warp::trace::request());
