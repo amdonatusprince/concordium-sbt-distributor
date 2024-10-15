@@ -178,7 +178,9 @@ const page = () => {
             expiryTimeSignature,
             account,
             `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${CID}?`
-          );
+          ).then((response) => {
+            response && setMinted(true);
+          });
         })
         .catch((err: Error) => toast.error(err.message));
     } else {

@@ -14,9 +14,9 @@ import {
 
 export const DEFAULT_CONTRACT_INDEX = BigInt(10266);
 export const MAX_CONTRACT_EXECUTION_ENERGY = BigInt(30000);
-// export const WEB_URL = "http://localhost:3001";
-// export const VERIFIER_URL = "https:localhost/api";
-export const VERIFIER_URL = "http://localhost:8080/api";
+// export const VERIFIER_URL = "http://localhost:8080/api";
+export const VERIFIER_URL =
+  "https://techfiesta-sbt-distributor.onrender.com/api";
 export const WEB_URL = "https://techfiesta-sbt-distributor.vercel.app";
 export const SPONSORED_TX_CONTRACT_NAME = "techfiesta_minter_contract";
 export const CONTRACT_SUB_INDEX = BigInt(0);

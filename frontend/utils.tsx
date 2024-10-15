@@ -21,6 +21,7 @@ import {
 } from "./config";
 import { CONTRACT_SCHEMAS } from "./techfiesta_minter_contract_schema";
 import { Buffer } from "buffer/";
+import toast from "react-hot-toast";
 
 export interface TxHashResponse {
   tx_hash: string;
@@ -98,10 +99,12 @@ export async function submitMint(
   });
   if (!response.ok) {
     const error = (await response.json()) as unknown;
+    toast.error("SBT mint failed");
     throw new Error(`Unable to submit transfer: ${JSON.stringify(error)}`);
   }
   const body = (await response.json()) as TxHashResponse;
   if (body) {
+    toast.success("SBT mint successful");
     return body;
   }
   throw new Error("Unable to submit transfer");
