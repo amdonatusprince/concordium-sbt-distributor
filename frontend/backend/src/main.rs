@@ -99,14 +99,32 @@ async fn main() -> anyhow::Result<()> {
 
     println!("Looking for keys at: {:?}", app.keys_path);
 
+    // let keys_path = app.keys_path.unwrap_or_else(|| {
+    //     PathBuf::from(std::env::var("ACCOUNT_KEYS_PATH").expect("ACCOUNT_KEYS_PATH .env not set"))
+    // });
 
-    let keys_path = app.keys_path.unwrap_or_else(|| {
-        PathBuf::from(std::env::var("ACCOUNT_KEYS_PATH").expect("ACCOUNT_KEYS_PATH .env not set"))
-    });
+    // // Load account keys from the file
+    // let keys: WalletAccount = serde_json::from_str(
+    //     &std::fs::read_to_string(keys_path).context("Could not read the keys file.")?,
+    // )
+    // .context("Could not parse the keys file.")?;
+
+    // Check for the file in multiple locations
+    let possible_paths = vec![
+        PathBuf::from("key.json"), // Local development
+        PathBuf::from("/etc/secrets/key.json"), // Render secret file path
+    ];
+
+    let keys_path = possible_paths
+        .into_iter()
+        .find(|path| path.exists())
+        .ok_or_else(|| anyhow!("Could not find account_keys.json"))?;
+
+    log::debug!("Using keys from: {:?}", keys_path);
 
     // Load account keys from the file
     let keys: WalletAccount = serde_json::from_str(
-        &std::fs::read_to_string(keys_path).context("Could not read the keys file.")?,
+        &std::fs::read_to_string(&keys_path).context("Could not read the keys file.")?,
     )
     .context("Could not parse the keys file.")?;
 
