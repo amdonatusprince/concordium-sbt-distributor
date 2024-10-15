@@ -67,10 +67,6 @@ export default function Home() {
       .required("Description is required")
       .min(10, "Description must be at least 10 characters long"),
 
-    // symbol: Yup.string()
-    //   .required("Symbol is required")
-    //   .max(5, "Symbol must be at most 5 characters long"),
-
     // decimals: Yup.number()
     //   .required("Decimals are required")
     //   .typeError("Decimals must be a number")
