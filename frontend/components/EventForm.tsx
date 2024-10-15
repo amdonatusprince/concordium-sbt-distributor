@@ -107,47 +107,6 @@ const EventForm = ({
         />
         <ErrorMessage name="description" component={FormikErrorMessage} />
       </div>
-      {/* <div>
-        <label
-          htmlFor="symbol"
-          className="block text-[16px] font-medium text-gray-700"
-        >
-          Symbol
-        </label>
-        <Field
-          type="text"
-          id="symbol"
-          name="symbol"
-          required
-          placeholder="Enter symbol"
-          className="border border-gray-300 w-full p-2 rounded-md outline-none mt-2"
-        />
-        <ErrorMessage name="symbol" component={FormikErrorMessage} />
-      </div> */}
-      {/* <div>
-        <label
-          htmlFor="decimals"
-          className="block text-[16px] font-medium text-gray-700"
-        >
-          Decimals
-        </label>
-        <Field
-          type="number"
-          id="decimals"
-          name="decimals"
-          required
-          placeholder="Enter decimals"
-          className="border border-gray-300 w-full p-2 rounded-md outline-none mt-2"
-        />
-        <ErrorMessage name="decimals" component={FormikErrorMessage} />
-      </div> */}
-      {/* <div>
-        <div className="flex gap-2">
-          <Field type="checkbox" name="unique" id="unique" className="" />
-          <label htmlFor="unique">Unique</label>
-        </div>
-        <ErrorMessage name="unique" component={FormikErrorMessage} />
-      </div> */}
       <ImageUploader setFieldValue={setFieldValue} values={values} />
       <button
         type="button"

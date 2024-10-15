@@ -27,12 +27,15 @@ import {
 import { generateMintPayload, getNonce, submitMint } from "@/utils";
 import { CONTRACT_SCHEMAS } from "@/techfiesta_minter_contract_schema";
 import { Buffer } from "buffer/";
+import { BarLoader, CircleLoader } from "react-spinners";
 
 const page = () => {
   const [nftData, setNftData] = useState<any>(null);
   const [copySuccess, setCopySuccess] = useState(false);
   const [minted, setMinted] = useState(false);
   const [nextNonce, setNextNonce] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const {
     connection,
@@ -47,16 +50,24 @@ const page = () => {
 
   const getNft = async () => {
     try {
+      setLoading(true);
       const response = await fetch(`/api/files?CID=${CID}`);
       if (response.ok) {
         const data: GetCIDResponse = await response.json();
         console.log(data.data);
         setNftData(data.data);
+        setLoading(false);
+        setError(false);
         toast.success("sucessfull");
+      } else {
+        toast.error("failed");
+        setLoading(false);
+        setError(true);
       }
     } catch (e) {
       console.log(e);
-      toast.error("failed");
+      setLoading(false);
+      setError(true);
     }
   };
 
@@ -187,9 +198,24 @@ const page = () => {
       toast.error("Serialization Error");
     }
   };
+  console.log(nftData);
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
+      {loading && (
+        <div className="text-[25px] font-agrandir flex justify-center items-center h-full">
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-[#3b82f6]">Loading SBT</p>
+            <CircleLoader color="#3b82f6" size={200} />
+          </div>
+        </div>
+      )}
+      {error && !loading && (
+        <div className="text-[25px] text-center text-gray-700 mt-7">
+          <p>Error loading SBT...</p>
+          <p className="text-[20px]">try to refresh page...</p>
+        </div>
+      )}
       {nftData && (
         <div className="p-10  flex justify-center items-center">
           <div>

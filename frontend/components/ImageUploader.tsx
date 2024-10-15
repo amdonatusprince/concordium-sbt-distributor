@@ -30,12 +30,6 @@ const ImageUploader = ({ setFieldValue, values }: Image) => {
       setUploading(true);
       const formData = new FormData();
       formData.append("file", fileToUpload, `${fileToUpload.name}`);
-      // const uploadData = await pinata.upload.file(formData);
-      // ("use server");
-      // const data = (await formData.get("file")) as unknown as FileObject;
-
-      // const response = await pinata.upload.file(data);
-
       const request = await fetch("/api/files", {
         method: "POST",
         body: formData,
