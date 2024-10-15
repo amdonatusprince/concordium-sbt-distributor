@@ -27,7 +27,7 @@ import {
 import { generateMintPayload, getNonce, submitMint } from "@/utils";
 import { CONTRACT_SCHEMAS } from "@/techfiesta_minter_contract_schema";
 import { Buffer } from "buffer/";
-import { BarLoader, CircleLoader } from "react-spinners";
+import { BarLoader, BeatLoader, CircleLoader } from "react-spinners";
 
 const page = () => {
   const [nftData, setNftData] = useState<any>(null);
@@ -36,6 +36,7 @@ const page = () => {
   const [nextNonce, setNextNonce] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [minting, setMinting] = useState(false);
 
   const {
     connection,
@@ -148,7 +149,6 @@ const page = () => {
           account,
           contract
         );
-
         setNextNonce(Number(value[0]));
       } catch (error) {
         console.error("Error fetching nonce:", error);
@@ -162,6 +162,11 @@ const page = () => {
   }, [account, rpc, contract]);
 
   const mintSponsoredNft = async () => {
+    if (!account) {
+      toast.error("Please connect wallet");
+      return;
+    }
+    setMinting(true);
     // Signatures should expire in one day. Add 1 day to the current time.
     const date = new Date();
     date.setTime(date.getTime() + 86400 * 1000);
@@ -191,10 +196,15 @@ const page = () => {
             `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${CID}?`
           ).then((response) => {
             response && setMinted(true);
+            setMinting(false);
           });
         })
-        .catch((err: Error) => toast.error(err.message));
+        .catch((err: Error) => {
+          toast.error(err.message);
+          setMinting(false);
+        });
     } else {
+      setMinting(false);
       toast.error("Serialization Error");
     }
   };
@@ -247,10 +257,12 @@ const page = () => {
                   // onClick={() => mintNft()}
                   onClick={() => mintSponsoredNft()}
                   className={`${
-                    minted ? "bg-blue-200 text-white" : "bg-blue-500 text-white"
+                    minted || minting
+                      ? "bg-blue-200 text-white"
+                      : "bg-blue-500 text-white"
                   } border w-full p-3 rounded-md max-w-[300px] `}
                 >
-                  Mint SBT
+                  {minting ? <BeatLoader color="#ffffff" /> : "Mint SBT"}
                 </button>
               </div>
               {minted && (

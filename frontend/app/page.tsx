@@ -52,7 +52,7 @@ export default function Home() {
   const initiaValues: InitiaValues = {
     name: "",
     description: "",
-    symbol: "TECH",
+    symbol: "TECHFIESTA",
     decimals: "0",
     unique: true,
     nftImageUrl: "",
@@ -213,26 +213,6 @@ export default function Home() {
           )}
         </Formik>
       </main>
-      {/* <footer className="bg-blue-500 text-white p-4 text-center">
-        <button
-          className="bg-gray-100 hover:bg-gray-200 text-blue-500 font-bold py-2 px-4 rounded transition duration-300"
-          disabled={uploadingMetadata}
-          onClick={() => {
-            console.log();
-            if (
-              emailSubject !== "" &&
-              emailContent !== "" &&
-              emailList.length > 0
-            ) {
-              sendEmail();
-            } else {
-              toast.error("Please fill out all email required fields");
-            }
-          }}
-        >
-          {uploadingMetadata ? <BeatLoader color="#3b82f6" /> : "Send SBT Link"}
-        </button>
-      </footer> */}
     </div>
   );
 }
