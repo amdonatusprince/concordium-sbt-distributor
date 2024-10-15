@@ -8,6 +8,7 @@ use concordium_rust_sdk::{
     types::{ContractAddress, WalletAccount},
     v2::{Endpoint, Scheme},
 };
+use dotenv::dotenv;
 use std::{
     collections::HashMap,
     path::{Path, PathBuf},
@@ -52,12 +53,18 @@ struct IdVerifierConfig {
         help = "location of the folder to serve"
     )]
     public_folder: String,
-    #[structopt(long = "account", help = "Path to the account key file.")]
-    keys_path: PathBuf,
+
+    #[clap(
+        long = "account",
+        env = "ACCOUNT_KEYS_PATH",
+        help = "Path to the account key file."
+    )]
+    keys_path: Option<PathBuf>,
 }
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    dotenv().ok();
     let app = IdVerifierConfig::parse();
     let mut log_builder = env_logger::Builder::new();
     // only log the current module (main).
@@ -85,8 +92,21 @@ async fn main() -> anyhow::Result<()> {
     log::debug!("Acquire keys.");
 
     // load account keys and sender address from a file
+    // let keys: WalletAccount = serde_json::from_str(
+    //     &std::fs::read_to_string(app.keys_path).context("Could not read the keys file.")?,
+    // )
+    // .context("Could not parse the keys file.")?;
+
+    println!("Looking for keys at: {:?}", app.keys_path);
+
+
+    let keys_path = app.keys_path.unwrap_or_else(|| {
+        PathBuf::from(std::env::var("ACCOUNT_KEYS_PATH").expect("ACCOUNT_KEYS_PATH .env not set"))
+    });
+
+    // Load account keys from the file
     let keys: WalletAccount = serde_json::from_str(
-        &std::fs::read_to_string(app.keys_path).context("Could not read the keys file.")?,
+        &std::fs::read_to_string(keys_path).context("Could not read the keys file.")?,
     )
     .context("Could not parse the keys file.")?;
 
