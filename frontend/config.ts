@@ -12,7 +12,7 @@ import {
 //   pinataGateway: `${process.env.NEXT_PUBLIC_GATEWAY_URL}`,
 // });
 
-export const DEFAULT_CONTRACT_INDEX = BigInt(10266);
+export const DEFAULT_CONTRACT_INDEX = BigInt(9747);
 export const MAX_CONTRACT_EXECUTION_ENERGY = BigInt(30000);
 // export const VERIFIER_URL = "http://localhost:8080/api";
 export const VERIFIER_URL =
