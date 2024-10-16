@@ -1,19 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ImageUploader from "@/components/ImageUploader";
 import EventForm from "@/components/EventForm";
 import EmailList from "@/components/EmailList";
 import EmailEditor from "@/components/EmailEditor";
 import { Formik, Form } from "formik";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
-import { WEB_URL } from "@/config";
-import { BiLoader, BiLoaderCircle } from "react-icons/bi";
-import { FaCircleNotch } from "react-icons/fa";
-import { FaSpinner } from "react-icons/fa6";
-import { BeatLoader, BarLoader } from "react-spinners";
-import { Resend } from "resend";
+import { BeatLoader } from "react-spinners";
 
 export interface InitiaValues {
   name: string;
@@ -34,8 +28,17 @@ export default function Home() {
   const [metadataUrl, setMetadataUrl] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
   const [uploadingMetadata, setUploadingMetadata] = useState(false);
+  const [baseUrl, setBaseUrl] = useState("");
 
-  const nftLink = `${WEB_URL}/${metadataCID}`;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const { protocol, host } = window.location;
+      const origin = `${protocol}//${host}`;
+      setBaseUrl(origin);
+    }
+  }, []);
+
+  console.log(baseUrl);
 
   const handleCopy = async () => {
     try {
@@ -48,6 +51,8 @@ export default function Home() {
       console.error("Failed to copy text:", err);
     }
   };
+
+  const nftLink = `${baseUrl}/${metadataCID}`;
 
   const initiaValues: InitiaValues = {
     name: "",
